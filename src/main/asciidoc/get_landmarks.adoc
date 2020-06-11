@@ -1,0 +1,15 @@
+:snippets_path: get_landmarks
+
+= Get Landmarks
+
+You can using feature `*get landmarks*` to get all landmarks from the database
+ +
+Response in the list of data
+
+== CURL
+
+include::{snippets}/{snippets_path}/success/curl-request.adoc[]
+
+== RESPONSE
+
+include::{snippets}/{snippets_path}/success/http-response.adoc[]

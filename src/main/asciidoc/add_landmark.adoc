@@ -1,0 +1,17 @@
+:snippets_path: add_landmark
+
+= Add Landmark
+
+You can using feature `*add landmark*` to save a new landmark to the database
++
+API need a data in json
++
+And response as the same request
+
+== CURL
+
+include::{snippets}/{snippets_path}/success/curl-request.adoc[]
+
+== RESPONSE
+
+include::{snippets}/{snippets_path}/success/http-response.adoc[]

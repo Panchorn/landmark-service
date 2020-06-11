@@ -1,0 +1,12 @@
+= API SPEC OF LANDMARK SERVICE
+
+== Description
+Landmark service is a demo project for integration with Spring Boot and Asciidoctor.
+ +
+To auto-generate documentation of API specification.
+ +
+ +
+
+=== Features
+- <<../add_landmark.adoc#add-landmark, Add Landmark>>
+- <<../get_landmarks.adoc#get-landmarks, Get All Landmark>>
