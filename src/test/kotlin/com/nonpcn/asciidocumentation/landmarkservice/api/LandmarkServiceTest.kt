@@ -20,8 +20,10 @@ internal class LandmarkServiceTest {
 
     private val mockLandmark1 = LandmarkEntity("1", "landmark 1", "country 1", "provice 1", "type 1", 3.4)
     private val mockLandmark2 = LandmarkEntity("2", "landmark 2", "country 2", "provice 2", "type 2", 4.5)
+    private val mockLandmarkData1 = buildData(mockLandmark1)
+    private val mockLandmarkData2 = buildData(mockLandmark2)
     private val expectedEntityGetLandmark = mutableListOf(mockLandmark1, mockLandmark2)
-    private val expectedResponseGetLandmark = mutableListOf(buildData(mockLandmark1), buildData(mockLandmark2))
+    private val expectedResponseGetLandmark = mutableListOf(mockLandmarkData1, mockLandmarkData2)
 
     private fun buildData(landmarkEntity: LandmarkEntity): LandmarkData {
         return LandmarkData(
@@ -56,6 +58,18 @@ internal class LandmarkServiceTest {
 
         // then
         assertTrue(actual.isEmpty())
+    }
+
+    @Test
+    fun `should return landmark when add landmark success`() {
+        // given
+        every { landmarkRepository.save(any<LandmarkEntity>()) } returns mockLandmark1
+
+        // when
+        val actual = landmarkService.addLandmark(mockLandmarkData1)
+
+        // then
+        assertEquals(mockLandmarkData1, actual)
     }
 
 }
