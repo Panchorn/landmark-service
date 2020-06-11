@@ -1,11 +1,11 @@
 :snippets_path: add_landmark
 
-= Add Landmark
+= Add New Landmark
 
 You can using feature `*add landmark*` to save a new landmark to the database
-+
+ +
 API need a data in json
-+
+ +
 And response as the same request
 
 == CURL

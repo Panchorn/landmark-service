@@ -1,6 +1,6 @@
 :snippets_path: get_landmarks
 
-= Get Landmarks
+= Get All Landmarks
 
 You can using feature `*get landmarks*` to get all landmarks from the database
  +
