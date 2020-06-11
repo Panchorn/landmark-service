@@ -19,6 +19,7 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.3.72</kotlin.version>
         <io.mockk.version>1.9.3</io.mockk.version>
+        <asciidoctor.version>1.5.8</asciidoctor.version>
     </properties>
 
     <dependencies>
@@ -129,6 +130,59 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${asciidoctor.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/asciidoc</sourceDirectory>
+                            <preserveDirectories>true</preserveDirectories>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <snippets>${project.build.directory}/generated-snippets</snippets>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-index-public</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/restdocs</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-docs</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
