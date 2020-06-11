@@ -2,3 +2,7 @@ server:
   port: 8080
   servlet:
     context-path: /landmark-service
+
+spring:
+  profiles:
+    active: develop
