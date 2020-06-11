@@ -12,6 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.http.MediaType
 import org.springframework.restdocs.RestDocumentationContextProvider
 import org.springframework.restdocs.RestDocumentationExtension
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -19,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder
 import java.sql.SQLException
 
 @ExtendWith(MockKExtension::class, RestDocumentationExtension::class, SpringExtension::class)
@@ -63,6 +69,9 @@ internal class LandmarkControllerTest {
     fun setup(restDocumentation: RestDocumentationContextProvider) {
         mockMvc = MockMvcBuilders
             .standaloneSetup(landmarkController)
+            .apply<StandaloneMockMvcBuilder>(
+                documentationConfiguration(restDocumentation)
+            )
             .setControllerAdvice(ExceptionController())
             .build()
     }
@@ -72,7 +81,8 @@ internal class LandmarkControllerTest {
         every { landmarkService.getLandmarks() } returns expectedResponseGetLandmark
 
         mockMvc.perform(
-            get("/api/landmarks")
+            get("/landmark-service/api/landmarks")
+                .contextPath("/landmark-service")
         )
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.[0].id").value("1"))
@@ -81,6 +91,13 @@ internal class LandmarkControllerTest {
             .andExpect(jsonPath("$.[0].province").value("province 1"))
             .andExpect(jsonPath("$.[0].type").value("type 1"))
             .andExpect(jsonPath("$.[0].rating").value("3.4"))
+            .andDo(
+                document(
+                    "get_landmarks/success",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 
     @Test
@@ -109,7 +126,8 @@ internal class LandmarkControllerTest {
         every { landmarkService.addLandmark(any()) } returns mockLandmarkData
 
         mockMvc.perform(
-            post("/api/landmarks")
+            post("/landmark-service/api/landmarks")
+                .contextPath("/landmark-service")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mockAddLandmarkRequest)
         )
@@ -120,6 +138,13 @@ internal class LandmarkControllerTest {
             .andExpect(jsonPath("$.province").value("province 1"))
             .andExpect(jsonPath("$.type").value("type 1"))
             .andExpect(jsonPath("$.rating").value("3.4"))
+            .andDo(
+                document(
+                    "add_landmark/success",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 
     @Test
