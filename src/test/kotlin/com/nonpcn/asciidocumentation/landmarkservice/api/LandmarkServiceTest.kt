@@ -18,8 +18,8 @@ internal class LandmarkServiceTest {
     @MockK
     private lateinit var landmarkRepository: LandmarkRepository
 
-    private val mockLandmark1 = LandmarkEntity("1", "landmark 1", "country 1", "provice 1", "type 1", 3.4)
-    private val mockLandmark2 = LandmarkEntity("2", "landmark 2", "country 2", "provice 2", "type 2", 4.5)
+    private val mockLandmark1 = LandmarkEntity("1", "landmark 1", "country 1", "province 1", "type 1", 3.4)
+    private val mockLandmark2 = LandmarkEntity("2", "landmark 2", "country 2", "province 2", "type 2", 4.5)
     private val mockLandmarkData1 = buildData(mockLandmark1)
     private val mockLandmarkData2 = buildData(mockLandmark2)
     private val expectedEntityGetLandmark = mutableListOf(mockLandmark1, mockLandmark2)
