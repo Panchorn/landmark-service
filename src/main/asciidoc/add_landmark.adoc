@@ -4,14 +4,55 @@
 
 You can using feature `*add landmark*` to save a new landmark to the database
  +
-API need a data in json
- +
-And response as the same request
+API need a data in json and response as the same request
 
-== CURL
+== DATA DICT
+
+|===
+|Name |Type |Description
+
+|id
+|String
+|Unique identity of the Landmark
+
+|name
+|String
+|Landmark's name
+
+|country
+|String
+|Country of the Landmark
+
+|province
+|String
+|Province of the Landmark
+
+|type
+|String
+|Landmark's type
+
+|rating
+|String
+|Rating score of the Landmark
+|===
+
+
+== SUCCESS
+
+=== CURL
 
 include::{snippets}/{snippets_path}/success/curl-request.adoc[]
 
-== RESPONSE
+=== RESPONSE
 
 include::{snippets}/{snippets_path}/success/http-response.adoc[]
+
+== FAIL
+
+=== CURL
+
+include::{snippets}/{snippets_path}/fail/curl-request.adoc[]
+
+=== RESPONSE
+
+include::{snippets}/{snippets_path}/fail/http-response.adoc[]

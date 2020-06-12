@@ -8,5 +8,5 @@ To auto-generate documentation of API specification.
  +
 
 === Features
-- <<../document/add_landmark.adoc#add-landmark, Add New Landmark>>
-- <<../document/get_landmarks.adoc#get-landmarks, Get All Landmarks>>
+. <<../document/add_landmark.adoc#add-landmark, Add New Landmark>>
+. <<../document/get_landmarks.adoc#get-landmarks, Get All Landmarks>>

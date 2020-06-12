@@ -6,10 +6,57 @@ You can using feature `*get landmarks*` to get all landmarks from the database
  +
 Response in the list of data
 
-== CURL
+== DATA DICT
+
+|===
+|Name |Type |Description
+
+|id
+|String
+|Unique identity of the Landmark
+
+|name
+|String
+|Landmark's name
+
+|country
+|String
+|Country of the Landmark
+
+|province
+|String
+|Province of the Landmark
+
+|type
+|String
+|Landmark's type
+
+|rating
+|String
+|Rating score of the Landmark
+|===
+
+== SUCCESS
+
+=== CURL
 
 include::{snippets}/{snippets_path}/success/curl-request.adoc[]
 
-== RESPONSE
+=== RESPONSE
 
 include::{snippets}/{snippets_path}/success/http-response.adoc[]
+
+=== RESPONSE WITH NO DATA
+
+include::{snippets}/{snippets_path}/success_with_empty_list/http-response.adoc[]
+
+
+== FAIL
+
+=== CURL
+
+include::{snippets}/{snippets_path}/success/curl-request.adoc[]
+
+=== RESPONSE
+
+include::{snippets}/{snippets_path}/fail/http-response.adoc[]
