@@ -40,7 +40,8 @@ internal class LandmarkControllerTest {
     private lateinit var landmarkService: LandmarkService
 
     private val mockLandmarkData = LandmarkData("1", "landmark 1", "country 1", "province 1", "type 1", 3.4)
-    private val expectedResponseGetLandmark = mutableListOf(mockLandmarkData)
+    private val mockLandmarkData2 = LandmarkData("2", "landmark 2", "country 2", "province 2", "type 2", 4.6)
+    private val expectedResponseGetLandmark = mutableListOf(mockLandmarkData, mockLandmarkData2)
 
     private val mockAddLandmarkRequest: String =
         """
@@ -91,6 +92,12 @@ internal class LandmarkControllerTest {
             .andExpect(jsonPath("$.[0].province").value("province 1"))
             .andExpect(jsonPath("$.[0].type").value("type 1"))
             .andExpect(jsonPath("$.[0].rating").value("3.4"))
+            .andExpect(jsonPath("$.[1].id").value("2"))
+            .andExpect(jsonPath("$.[1].name").value("landmark 2"))
+            .andExpect(jsonPath("$.[1].country").value("country 2"))
+            .andExpect(jsonPath("$.[1].province").value("province 2"))
+            .andExpect(jsonPath("$.[1].type").value("type 2"))
+            .andExpect(jsonPath("$.[1].rating").value("4.6"))
             .andDo(
                 document(
                     "get_landmarks/success",
@@ -109,6 +116,13 @@ internal class LandmarkControllerTest {
         )
             .andExpect(status().isOk)
             .andExpect(jsonPath("$").isEmpty)
+            .andDo(
+                document(
+                    "get_landmarks/success_with_empty_list",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 
     @Test
@@ -119,6 +133,13 @@ internal class LandmarkControllerTest {
             get("/api/landmarks")
         )
             .andExpect(status().isInternalServerError)
+            .andDo(
+                document(
+                    "get_landmarks/fail",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 
     @Test
@@ -157,6 +178,13 @@ internal class LandmarkControllerTest {
                 .content(mockAddLandmarkRequestNameTooLong)
         )
             .andExpect(status().isInternalServerError)
+            .andDo(
+                document(
+                    "add_landmark/fail",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())
+                )
+            )
     }
 
 }
